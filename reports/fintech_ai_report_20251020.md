@@ -2,30 +2,13 @@
 
 **Technology Adoption in Financial Services & Trading**
 
-*Generated: October 20, 2025 at 15:13 UTC*
+*Generated: October 20, 2025 at 12:23 UTC*
 
 ---
 
 ## Overview
 
 This report analyzes AI and technology adoption specifically within financial services, trading, and fintech applications. Covers payment infrastructure, quantitative tools, and risk/compliance systems.
-
----
-
-## Data Quality Overview
-
-**Total Technologies Analyzed:** 12
-
-### Confidence Distribution
-- 🟢 **High Confidence:** 12 technologies (2+ sources)
-- 🟡 **Medium Confidence:** 0 technologies (1 source)
-- 🔴 **Low Confidence:** 0 technologies
-
-### ⚠️ Hype Signals Detected: 1
-
-Technologies showing divergence between visibility and actual usage:
-
-- **zipline**: High GitHub stars but low PyPI downloads
 
 ---
 

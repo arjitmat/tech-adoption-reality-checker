@@ -2,7 +2,7 @@
 
 **Cross-Market Analysis: Enterprise AI vs Fintech AI**
 
-*Generated: October 20, 2025 at 15:13 UTC*
+*Generated: October 20, 2025 at 12:23 UTC*
 
 ---
 
