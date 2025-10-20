@@ -43,7 +43,7 @@ jobs:
 
       - name: Collect latest data
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
           STACK_API_KEY: ${{ secrets.STACK_API_KEY }}
         run: |
           if [ -n "${{ github.event.inputs.list_name }}" ]; then
@@ -56,7 +56,7 @@ jobs:
 
       - name: Run analysis pipeline
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.API_TOKEN_GITHUB }}
           STACK_API_KEY: ${{ secrets.STACK_API_KEY }}
         run: |
           echo "Running analysis pipeline..."
