@@ -56,11 +56,12 @@ To enable daily automated updates:
 3. Click **"New repository secret"**
 4. Add these secrets:
 
-**GITHUB_API_TOKEN:**
-- Name: `GITHUB_API_TOKEN`
+**API_TOKEN_GITHUB:**
+- Name: `API_TOKEN_GITHUB`
 - Value: Your GitHub personal access token
 - Get from: https://github.com/settings/tokens
 - Permissions needed: `repo`, `workflow`
+- Note: GitHub doesn't allow secret names starting with "GITHUB"
 
 **STACK_API_KEY** (optional):
 - Name: `STACK_API_KEY`
