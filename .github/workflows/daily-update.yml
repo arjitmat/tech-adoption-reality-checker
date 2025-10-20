@@ -81,14 +81,16 @@ jobs:
             echo "No changes to commit"
           else
             TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
-            git commit -m "🤖 Automated update: $TIMESTAMP
+            git commit -m "$(cat <<EOF
+          🤖 Automated update: $TIMESTAMP
 
-- Updated technology adoption data
-- Regenerated analysis and reports
-- Data sources: GitHub, npm, PyPI
+          - Updated technology adoption data
+          - Regenerated analysis and reports
+          - Data sources: GitHub, npm, PyPI
 
-Co-Authored-By: Tech Adoption Bot <actions@github.com>"
-
+          Co-Authored-By: Tech Adoption Bot <actions@github.com>
+          EOF
+          )"
             git push
             echo "✓ Changes pushed successfully"
           fi
