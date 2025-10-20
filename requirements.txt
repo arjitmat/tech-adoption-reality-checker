@@ -1,0 +1,23 @@
+# Core dependencies
+requests>=2.31.0
+pandas>=2.1.0
+numpy>=1.24.0
+
+# Data collection
+pypistats>=1.5.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Reporting
+markdown>=3.5.0
+reportlab>=4.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+
+# Development
+jupyter>=1.0.0
+ipython>=8.12.0
