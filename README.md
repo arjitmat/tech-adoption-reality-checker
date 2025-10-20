@@ -27,28 +27,44 @@ This system tracks **27 strategically-selected technologies** across two focused
 # Install dependencies
 pip install -r requirements.txt
 
-# Configure API keys (copy .env.example to .env)
-cp .env.example .env
-# Add your GITHUB_TOKEN to .env
+# Configure API keys
+# Create .env file with:
+# GITHUB_TOKEN=your_token_here
 ```
 
-### Data Collection
+### Manual Run
 
 ```bash
 # Collect data for all lists
 python src/collect_all.py
 
-# Collect for specific list only
-python src/collect_all.py --list enterprise
-python src/collect_all.py --list fintech
+# Run analysis
+python src/analyze_all.py
+
+# Generate reports
+python src/generate_reports.py
 ```
+
+### Autonomous Setup
+
+See [SETUP.md](SETUP.md) for GitHub Actions configuration to enable daily auto-updates.
+
+Once configured, the system will:
+- Collect fresh data daily at 9 AM UTC
+- Run analysis automatically
+- Generate updated reports
+- Commit changes to repository
+- Keep your portfolio always current
 
 ### Current Status
 
 - ✅ **Phase 1A Complete**: Data collection system operational
 - ✅ **Phase 1B Complete**: Analysis and insights generation
-- 🚧 **Phase 1C In Progress**: Report generation (3 strategic reports + visualizations)
-- ⏳ **Phase 2 Planned**: Autonomous updates via GitHub Actions
+- ✅ **Phase 1C Complete**: Report generation (3 strategic reports + visualizations)
+- ✅ **Phase 2 Complete**: Autonomous updates via GitHub Actions
+
+**🤖 System Status:** Auto-updating daily at 9 AM UTC
+**Last updated:** Will be updated automatically by GitHub Actions
 
 ### Latest Results
 

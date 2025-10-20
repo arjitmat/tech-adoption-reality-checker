@@ -60,3 +60,9 @@ Thumbs.db
 **/secrets.py
 **/*_token.txt
 **/*_key.txt
+
+# Internal development documents (not for public GitHub)
+CLAUDE.md
+DEV_LOG.md
+PORTFOLIO_SHOWCASE.md
+tech-adoption-dev-plan.md

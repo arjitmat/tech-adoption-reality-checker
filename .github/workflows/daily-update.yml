@@ -1,0 +1,100 @@
+name: Daily Tech Adoption Update
+
+on:
+  schedule:
+    # Run daily at 9 AM UTC (2:30 PM IST)
+    - cron: '0 9 * * *'
+
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      list_name:
+        description: 'Specific list to update (enterprise/fintech) or leave empty for all'
+        required: false
+        type: string
+
+jobs:
+  update-adoption-data:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write  # Needed to push updates
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Configure git
+        run: |
+          git config --global user.name "Tech Adoption Bot"
+          git config --global user.email "actions@github.com"
+
+      - name: Collect latest data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+          STACK_API_KEY: ${{ secrets.STACK_API_KEY }}
+        run: |
+          if [ -n "${{ github.event.inputs.list_name }}" ]; then
+            echo "Collecting data for ${{ github.event.inputs.list_name }} list..."
+            python3 src/collect_all.py --list ${{ github.event.inputs.list_name }}
+          else
+            echo "Collecting data for all lists..."
+            python3 src/collect_all.py
+          fi
+
+      - name: Run analysis pipeline
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
+          STACK_API_KEY: ${{ secrets.STACK_API_KEY }}
+        run: |
+          echo "Running analysis pipeline..."
+          python3 src/analyze_all.py
+
+      - name: Generate reports
+        run: |
+          echo "Generating updated reports..."
+          python3 src/generate_reports.py
+
+      - name: Update README with timestamp
+        run: |
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+          sed -i "s/Last updated:.*/Last updated: $TIMESTAMP/" README.md || echo "**Last updated:** $TIMESTAMP" >> README.md
+
+      - name: Commit and push changes
+        run: |
+          git add data/processed/*.json reports/*.md reports/charts/*.png README.md
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+            git commit -m "🤖 Automated update: $TIMESTAMP
+
+- Updated technology adoption data
+- Regenerated analysis and reports
+- Data sources: GitHub, npm, PyPI
+
+Co-Authored-By: Tech Adoption Bot <actions@github.com>"
+
+            git push
+            echo "✓ Changes pushed successfully"
+          fi
+
+      - name: Check for errors
+        if: failure()
+        run: |
+          echo "::error::Workflow failed. Check logs for details."
+          cat logs/*.log 2>/dev/null || echo "No log files found"
