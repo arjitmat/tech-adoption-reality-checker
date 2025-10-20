@@ -74,7 +74,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git add data/processed/*.json reports/*.md reports/charts/*.png README.md
+          # Add only files that aren't ignored (reports and README)
+          git add reports/*.md reports/charts/*.png README.md 2>/dev/null || true
 
           # Check if there are changes to commit
           if git diff --staged --quiet; then
